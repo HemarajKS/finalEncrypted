@@ -21,8 +21,6 @@ const Login = () => {
   }
 
   async function comparePassord(mPin: any, hashedMPin: any, mobileNo: any) {
-    const previous = JSON.parse(localStorage.getItem('users') || '[]');
-
     const isMatch = await bcrypt.compare(mPin, hashedMPin);
     if (isMatch) {
       localStorage.setItem('auth', 'authenticated');
@@ -30,7 +28,7 @@ const Login = () => {
       localStorage.setItem('currentUser', mobileNo);
       window.location.reload();
     } else {
-      alert('not matched');
+      alert('Please enter correct userName or Password');
     }
   }
 
