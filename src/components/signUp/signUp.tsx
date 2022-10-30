@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bcrypt from 'bcryptjs';
 const SignUp = () => {
+  const [match, setMatch] = useState('');
+  const [mPinLength, setMPinLength] = useState('');
+  const [mobileLength, setMobileLength] = useState('');
+
   async function emptyUserhashFunc(user: any) {
     const salt = await bcrypt.genSalt(10);
     user.mPin = await bcrypt.hash(user.mPin, salt);
@@ -54,24 +58,34 @@ const SignUp = () => {
 
     console.log('userData', previousData);
 
-    if (previousData.length > 0 && mobileNo) {
-      const mappedUser = previousData.map((user) => {
-        if (user.mobileNo === mobileNo) {
-          return 'user';
-        }
-        return 'no user';
-      });
+    if (JSON.stringify(mobileNo).length - 2 === 10) {
+      if (previousData.length > 0 && mobileNo) {
+        const mappedUser = previousData.map((user) => {
+          if (user.mobileNo === mobileNo) {
+            return 'user';
+          }
+          return 'no user';
+        });
 
-      if (newMPin === confirmMpin) {
-        if (mappedUser.includes('user')) {
-          alert('user already exist');
-        } else if (mappedUser.includes('no user')) {
-          hashFunc(previousData, userData);
+        if (JSON.stringify(newMPin).length - 2 === 4) {
+          if (newMPin === confirmMpin) {
+            if (mappedUser.includes('user')) {
+              alert('user already exist');
+            } else if (mappedUser.includes('no user')) {
+              hashFunc(previousData, userData);
+            }
+          } else {
+            // alert('mPin does not match');
+            setMatch('false');
+          }
+        } else {
+          // alert('mPin should be 4 digits');
+          setMPinLength('four');
         }
-      } else {
-        alert('mPin does not match');
+      } else if ((previousData.length = 0 && mobileNo)) {
       }
-    } else if ((previousData.length = 0 && mobileNo)) {
+    } else {
+      setMobileLength('ten');
     }
   };
 
@@ -81,32 +95,40 @@ const SignUp = () => {
       <div className="loginFormBody">
         <form onSubmit={signUpHandler}>
           <div className="inputContainer">
-            <input
-              type="number"
-              className="input"
-              placeholder="Enter Mobile Number"
-              name="mobileNo"
-              minLength={10}
-              maxLength={10}
-            />
+            <div>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter Mobile Number"
+                name="mobileNo"
+                required
+              />
+              {mobileLength === 'ten' && (
+                <div className="errorInput">
+                  Mobile number should be of 10 digits
+                </div>
+              )}
+            </div>
+
             <div className="loginPW">
               <input
-                type="text"
+                type="number"
                 className="input"
                 placeholder="Enter 4 Digit MPin"
-                minLength={4}
-                maxLength={4}
                 name="newMPin"
+                required
               />
+              {mPinLength === 'four' && (
+                <div className="errorInput">Mpin should be of 4 digits</div>
+              )}
             </div>
             <div className="loginPW">
               <input
-                type={togglePass ? 'text' : 'password'}
+                type={togglePass ? 'number' : 'password'}
                 className="input"
                 placeholder="MPin"
-                minLength={4}
-                maxLength={4}
                 name="confirmMPin"
+                required
               />
               <img
                 src={require('../../assets/icons/eye_on.png')}
@@ -114,6 +136,9 @@ const SignUp = () => {
                 className="eyeIcon"
                 onClick={togglePassword}
               />
+              {match === 'false' && (
+                <div className="errorInput">Mpins Does not match</div>
+              )}
             </div>
           </div>
 
