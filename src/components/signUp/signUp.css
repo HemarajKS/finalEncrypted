@@ -19,3 +19,7 @@
   padding: 10px 28px;
   border-radius: 0.4em;
 }
+
+.errorInput {
+  color: red;
+}
