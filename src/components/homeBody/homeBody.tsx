@@ -150,10 +150,13 @@ const HomeBody = (props: any) => {
                           <img src={ele.icon} alt="" />
                         ) : (
                           // eslint-disable-next-line jsx-a11y/alt-text
+
+                          // eslint-disable-next-line jsx-a11y/alt-text
                           <img
-                            src={require('../../assets/icons/Twitter.png')}
+                            src={`https://app.outboundsales.io/api/logo/${ele.siteName}.com`}
                             height="50px"
                             width="50px"
+                            alt={ele.siteName}
                             style={{
                               backgroundPosition: 'cover',
                               borderRadius: '50%',
