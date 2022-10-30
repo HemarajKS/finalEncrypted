@@ -141,8 +141,8 @@ const Modal = (props: any) => {
         }
       } else if (props.props === 'Site Details') {
         let repeated: any[] = [];
-        previousData.map((ele: any) => {
-          if (newData.siteName === ele.siteName) {
+        previousData.map((ele: any, index: number) => {
+          if (props.element !== index && newData.siteName === ele.siteName) {
             repeated.push('repeat');
           }
         });
