@@ -32,13 +32,15 @@ const Modal = (props: any) => {
   };
 
   const currentItem = previousData[props.element];
-  currentItem.sitePassword = CryptoJS.AES.decrypt(
-    currentItem.sitePassword,
-    key,
-    {
-      iv: iv,
-    }
-  ).toString(CryptoJS.enc.Utf8);
+  if (currentItem) {
+    currentItem.sitePassword = CryptoJS.AES.decrypt(
+      currentItem.sitePassword,
+      key,
+      {
+        iv: iv,
+      }
+    ).toString(CryptoJS.enc.Utf8);
+  }
 
   useEffect(() => {
     setValue({
