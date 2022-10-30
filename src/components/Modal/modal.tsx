@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react';
 import './modal.css';
+import CryptoJS from 'crypto-js';
 
 const Modal = (props: any) => {
+  let key: any = '12345678901234567890123456789012';
+  key = CryptoJS.enc.Utf8.parse(key);
+
+  let iv: any = '1234567890123456';
+  iv = CryptoJS.enc.Utf8.parse(iv);
+
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState<any>({
     siteName: '',
@@ -19,6 +26,11 @@ const Modal = (props: any) => {
   );
 
   console.log('previous', previousData);
+  previousData.map((ele: any) => {
+    ele.sitePassword = CryptoJS.AES.decrypt(ele.sitePassword, key, {
+      iv: iv,
+    }).toString(CryptoJS.enc.Utf8);
+  });
 
   const onChangeHandler = (e: any) => {
     setValue(e.target.value);
@@ -84,7 +96,9 @@ const Modal = (props: any) => {
       url: e.target.url.value,
       sector: e.target.sector.value,
       userName: e.target.userName.value,
-      sitePassword: e.target.sitePassword.value,
+      sitePassword: CryptoJS.AES.encrypt(e.target.sitePassword.value, key, {
+        iv: iv,
+      }).toString(),
       notes: e.target.notes.value,
       icon: '',
     };

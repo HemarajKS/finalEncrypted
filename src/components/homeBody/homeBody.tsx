@@ -1,41 +1,48 @@
-import Modal from '../Modal/modal'
-import './homeBody.css'
-import { useState } from 'react'
+import Modal from '../Modal/modal';
+import './homeBody.css';
+import { useState } from 'react';
+import CryptoJS from 'crypto-js';
 
 const HomeBody = (props: any) => {
-  const [toggle, setToggle] = useState(false)
-  const [modal, setModal] = useState('')
-  const [element, setElement] = useState({})
-  const [Index, setIndex] = useState(0)
-  const [search, setSearch] = useState('')
-  const [category, setCategory] = useState('Social Media')
+  const [toggle, setToggle] = useState(false);
+  const [modal, setModal] = useState('');
+  const [element, setElement] = useState({});
+  const [Index, setIndex] = useState(0);
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('Social Media');
 
-  console.log('serachhh', props.clickSearch)
+  let key: any = '12345678901234567890123456789012';
+  key = CryptoJS.enc.Utf8.parse(key);
 
-  const currentUser = JSON.stringify(localStorage.getItem('currentUser') || '')
+  let iv: any = '1234567890123456';
+  iv = CryptoJS.enc.Utf8.parse(iv);
+
+  console.log('serachhh', props.clickSearch);
+
+  const currentUser = JSON.stringify(localStorage.getItem('currentUser') || '');
 
   if (localStorage.getItem(currentUser) === null) {
-    localStorage.setItem(currentUser, JSON.stringify([]))
+    localStorage.setItem(currentUser, JSON.stringify([]));
   }
 
   const previousData: any = JSON.parse(
-    localStorage.getItem(currentUser) || '[]',
-  )
+    localStorage.getItem(currentUser) || '[]'
+  );
 
   const Category = (e: any) => {
-    setCategory(e.target.value)
-  }
+    setCategory(e.target.value);
+  };
 
   const categoryData = previousData.filter((ele: any) =>
-    ele.sector.toLowerCase().includes(category.toLowerCase()),
-  )
+    ele.sector.toLowerCase().includes(category.toLowerCase())
+  );
 
-  console.log('category', categoryData)
+  console.log('category', categoryData);
 
   const filteredData = categoryData.filter((ele: any) =>
-    ele.siteName.toLowerCase().includes(search.toLowerCase()),
-  )
-  console.log(filteredData)
+    ele.siteName.toLowerCase().includes(search.toLowerCase())
+  );
+  console.log(filteredData);
 
   return (
     <div className="homeBodyContainer">
@@ -61,7 +68,7 @@ const HomeBody = (props: any) => {
               className="searchbar"
               placeholder="Search"
               onChange={(e: any) => {
-                setSearch(e.target.value)
+                setSearch(e.target.value);
               }}
             />
             <img
@@ -78,7 +85,7 @@ const HomeBody = (props: any) => {
                 className="searchbar"
                 placeholder="Search"
                 onChange={(e: any) => {
-                  setSearch(e.target.value)
+                  setSearch(e.target.value);
                 }}
               />
               <img
@@ -93,8 +100,8 @@ const HomeBody = (props: any) => {
           <div
             className="headerAddButton"
             onClick={() => {
-              setModal('Add Site')
-              setToggle(true)
+              setModal('Add Site');
+              setToggle(true);
             }}
             style={{ cursor: 'pointer' }}
           >
@@ -130,10 +137,10 @@ const HomeBody = (props: any) => {
                     key={index}
                     className="cardContents"
                     onClick={() => {
-                      setModal('Site Details')
-                      setElement(ele)
-                      setToggle(true)
-                      setIndex(index)
+                      setModal('Site Details');
+                      setElement(ele);
+                      setToggle(true);
+                      setIndex(index);
                     }}
                   >
                     <div className="cardUpper">
@@ -160,8 +167,12 @@ const HomeBody = (props: any) => {
                         <div
                           className="cardCopy"
                           onClick={(e) => {
-                            e.stopPropagation()
-                            navigator.clipboard.writeText(ele.sitePassword)
+                            e.stopPropagation();
+                            navigator.clipboard.writeText(
+                              CryptoJS.AES.decrypt(ele.sitePassword, key, {
+                                iv: iv,
+                              }).toString(CryptoJS.enc.Utf8)
+                            );
                           }}
                         >
                           <img
@@ -174,7 +185,7 @@ const HomeBody = (props: any) => {
                     </div>
                     <div className="cardLink">{ele.url}</div>
                   </div>
-                )
+                );
               })}
             </div>
           )}
@@ -185,7 +196,7 @@ const HomeBody = (props: any) => {
             <div className="closeBtnContainer">
               <button
                 onClick={() => {
-                  setToggle(false)
+                  setToggle(false);
                 }}
                 className="closeBtn"
               >
@@ -201,7 +212,7 @@ const HomeBody = (props: any) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomeBody
+export default HomeBody;
