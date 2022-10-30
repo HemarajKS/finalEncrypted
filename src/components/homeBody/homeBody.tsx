@@ -42,7 +42,6 @@ const HomeBody = (props: any) => {
   const filteredData = categoryData.filter((ele: any) =>
     ele.siteName.toLowerCase().includes(search.toLowerCase())
   );
-  console.log(filteredData);
 
   return (
     <div className="homeBodyContainer">
