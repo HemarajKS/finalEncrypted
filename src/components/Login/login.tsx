@@ -6,6 +6,8 @@ import bcrypt from 'bcryptjs';
 const Login = () => {
   const navigate = useNavigate();
   const [togglePass, setTogglePass] = useState(false);
+  const [mobileLength, setMobileLength] = useState('');
+  const [mPinLength, setMPinLength] = useState('');
 
   const togglePassword = () => {
     setTogglePass(!togglePass);
@@ -52,10 +54,18 @@ const Login = () => {
     );
     console.log('users', users);
 
-    for (let i = 0; i < users.length; i++) {
-      if (userData.mobileNo === users[i].mobileNo) {
-        comparePassord(userData.mPin, users[i].mPin, mobileNo);
+    if (JSON.stringify(userData.mobileNo).length - 2 === 10) {
+      if (JSON.stringify(userData.mPin).length - 2 === 4) {
+        for (let i = 0; i < users.length; i++) {
+          if (userData.mobileNo === users[i].mobileNo) {
+            comparePassord(userData.mPin, users[i].mPin, mobileNo);
+          }
+        }
+      } else {
+        setMPinLength('four');
       }
+    } else {
+      setMobileLength('ten');
     }
   };
 
@@ -65,21 +75,27 @@ const Login = () => {
       <div className="loginFormBody">
         <form onSubmit={loginHandler}>
           <div className="inputContainer">
-            <input
-              type="text"
-              className="input"
-              placeholder="Mobile Number"
-              name="mobileNo"
-              required
-            />
+            <div>
+              <input
+                type="number"
+                className="input"
+                placeholder="Mobile Number"
+                name="mobileNo"
+                required
+              />
+              {mobileLength === 'ten' && (
+                <div className="errorInput">
+                  Mobile number should be of 10 digits
+                </div>
+              )}
+            </div>
+
             <div className="loginPW">
               <input
-                type={togglePass ? 'text' : 'password'}
+                type={togglePass ? 'number' : 'password'}
                 className="input"
                 placeholder="MPin"
                 name="mPin"
-                minLength={4}
-                maxLength={4}
                 required
               />
               <img
@@ -88,6 +104,9 @@ const Login = () => {
                 className="eyeIcon"
                 onClick={togglePassword}
               />
+              {mPinLength === 'four' && (
+                <div className="errorInput">Mpin should be of 4 digits</div>
+              )}
             </div>
           </div>
           <div className="forgotPassword">
