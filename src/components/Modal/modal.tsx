@@ -26,17 +26,20 @@ const Modal = (props: any) => {
   );
 
   console.log('previous', previousData);
-  previousData.map((ele: any) => {
-    ele.sitePassword = CryptoJS.AES.decrypt(ele.sitePassword, key, {
-      iv: iv,
-    }).toString(CryptoJS.enc.Utf8);
-  });
 
   const onChangeHandler = (e: any) => {
     setValue(e.target.value);
   };
 
   const currentItem = previousData[props.element];
+  currentItem.sitePassword = CryptoJS.AES.decrypt(
+    currentItem.sitePassword,
+    key,
+    {
+      iv: iv,
+    }
+  ).toString(CryptoJS.enc.Utf8);
+
   useEffect(() => {
     setValue({
       siteName:

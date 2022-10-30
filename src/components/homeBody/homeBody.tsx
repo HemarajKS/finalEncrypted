@@ -6,7 +6,7 @@ import CryptoJS from 'crypto-js';
 const HomeBody = (props: any) => {
   const [toggle, setToggle] = useState(false);
   const [modal, setModal] = useState('');
-  const [element, setElement] = useState({});
+
   const [Index, setIndex] = useState(0);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('Social Media');
@@ -138,7 +138,7 @@ const HomeBody = (props: any) => {
                     className="cardContents"
                     onClick={() => {
                       setModal('Site Details');
-                      setElement(ele);
+
                       setToggle(true);
                       setIndex(index);
                     }}
