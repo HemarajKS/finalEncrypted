@@ -331,9 +331,9 @@
   }
 }
 
-@media screen and (min-width: 1380px) {
+@media screen and (min-width: 1370px) {
   .homeBody {
-    margin-top: 3rem;
+    margin-top: 1rem !important;
     margin-left: 0 !important;
     /* position: relative; */
     min-height: 100vh;
