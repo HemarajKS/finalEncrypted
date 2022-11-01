@@ -16,6 +16,13 @@ const LandingPage = (child: any) => {
     window.history.go(1);
   });
 
+  console.log('path', window.location.pathname);
+
+  window.addEventListener('popstate', (e) => {
+    // Nope, go back to your page
+    window.history.go(1);
+  });
+
   useEffect(() => {
     setDisplaySnackBar(Boolean(sessionStorage.getItem('signUpSuccess')));
     sessionStorage.removeItem('signUpSuccess');

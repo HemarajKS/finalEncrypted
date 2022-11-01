@@ -34,9 +34,12 @@ const Router = () => {
   };
   return (
     <Routes>
-      <Route path="/landing/*" element={<LandingPage />}>
-        <Route path="login" element={<Login />} />
-        <Route path="signUp" element={<SignUp />} />
+      <Route
+        path="/landing/*"
+        element={!authValue ? <LandingPage /> : <Home />}
+      >
+        {!authValue && <Route path="login" element={<Login />} />}
+        {!authValue && <Route path="signUp" element={<SignUp />} />}
       </Route>
       {protectedRouting('*', <Home />)}
     </Routes>
