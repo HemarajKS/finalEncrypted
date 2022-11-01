@@ -78,7 +78,7 @@ const HomeBody = (props: any) => {
           </div>
 
           {props.clickSearch ? (
-            <div>
+            <div className="headerSearchMobileContainer">
               <div className="headerSearchMobile">
                 <input
                   type="text"

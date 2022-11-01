@@ -258,6 +258,11 @@
 }
 
 @media screen and (max-width: 582px) {
+  .headerSearchMobileContainer {
+    width: calc(100vw - 2.4em);
+    display: flex;
+    justify-content: center;
+  }
   .homeBodyCount {
     display: none;
   }
@@ -308,7 +313,7 @@
   }
   .headerSearchMobile {
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     position: relative;
     z-index: 1;
     margin-top: 27%;
