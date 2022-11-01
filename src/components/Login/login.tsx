@@ -14,7 +14,7 @@ const Login = () => {
   const incorrectCredentials = () =>
     toast.warning('Please enter correct user name or Password', {
       position: 'top-center',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -68,11 +68,16 @@ const Login = () => {
     );
     console.log('users', users);
 
+    let verifyCredentials = [];
+
     if (JSON.stringify(userData.mobileNo).length - 2 === 10) {
       if (JSON.stringify(userData.mPin).length - 2 === 4) {
         for (let i = 0; i < users.length; i++) {
           if (userData.mobileNo === users[i].mobileNo) {
             comparePassord(userData.mPin, users[i].mPin, mobileNo);
+            verifyCredentials = [];
+          } else {
+            verifyCredentials.push('noData');
           }
         }
       } else {
@@ -80,6 +85,10 @@ const Login = () => {
       }
     } else {
       setMobileLength('ten');
+    }
+
+    if (verifyCredentials.includes('noData')) {
+      incorrectCredentials();
     }
   };
 
