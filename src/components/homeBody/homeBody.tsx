@@ -78,20 +78,22 @@ const HomeBody = (props: any) => {
           </div>
 
           {props.clickSearch ? (
-            <div className="headerSearchMobile">
-              <input
-                type="text"
-                className="searchbar"
-                placeholder="Search"
-                onChange={(e: any) => {
-                  setSearch(e.target.value);
-                }}
-              />
-              <img
-                src={require('../../assets/icons/search.png')}
-                alt="search"
-                className="searchbarIcn"
-              />
+            <div>
+              <div className="headerSearchMobile">
+                <input
+                  type="text"
+                  className="searchbar"
+                  placeholder="Search"
+                  onChange={(e: any) => {
+                    setSearch(e.target.value);
+                  }}
+                />
+                <img
+                  src={require('../../assets/icons/search.png')}
+                  alt="search"
+                  className="searchbarIcn"
+                />
+              </div>
             </div>
           ) : (
             ''

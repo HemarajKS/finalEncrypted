@@ -310,6 +310,14 @@
     display: flex;
     width: 100%;
     position: relative;
+    z-index: 1;
+    margin-top: 27%;
+  }
+
+  .searchbarIcn {
+    position: absolute;
+    right: 0;
+    bottom: 4px !important;
   }
 }
 
