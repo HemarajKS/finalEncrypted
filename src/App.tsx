@@ -1,16 +1,27 @@
 import './style.css';
-import LandingPage from './views/landingPage/landingPage';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './components/Login/login';
-import SignUp from './components/signUp/signUp';
+import { useEffect } from 'react';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 import Router from './components/routes/router';
 
 function App() {
+  const navigate = useNavigate();
+
+  const landingLocation = () => {
+    if (window.location.pathname === '/landing') {
+      navigate('/');
+      window.location.reload();
+    }
+  };
+
+  useEffect(() => {
+    landingLocation();
+  }, []);
+
   return (
     <div className="App">
-      <BrowserRouter>
+      <>
         <Router />
-      </BrowserRouter>
+      </>
     </div>
   );
 }
