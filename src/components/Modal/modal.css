@@ -244,5 +244,6 @@
 }
 
 .modalInput {
-  width: 90%;
+  width: 100%;
+  gap: 10px;
 }
