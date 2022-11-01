@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import './modal.css';
 import CryptoJS from 'crypto-js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const Modal = (props: any) => {
   let key: any = '12345678901234567890123456789012';
@@ -127,8 +129,8 @@ const Modal = (props: any) => {
 
         console.log('repeate', repeat.includes('repeat'));
         if (repeat.includes('repeat')) {
-          alert(
-            'Data already exists for this site name please edit to modify it...'
+          dataExists(
+            'Site Name already exist please enter different site name...'
           );
         } else {
           previousData.push(newData);
@@ -137,7 +139,7 @@ const Modal = (props: any) => {
             JSON.stringify(currentUser),
             JSON.stringify(previousData)
           );
-          alert('data added successfully');
+          dataAddedSuccessfully('Data added successfully');
         }
       } else if (props.props === 'Site Details') {
         let repeated: any[] = [];
@@ -147,7 +149,9 @@ const Modal = (props: any) => {
           }
         });
         if (repeated.includes('repeat')) {
-          alert('Site Name already exist please enter different site name...');
+          dataExists(
+            'Site Name already exist please enter different site name...'
+          );
         } else {
           previousData[props.element] = newData;
 
@@ -155,13 +159,37 @@ const Modal = (props: any) => {
             JSON.stringify(currentUser),
             JSON.stringify(previousData)
           );
-          alert('edit successful');
+          dataAddedSuccessfully('Data edited successful');
         }
       }
     } else {
-      alert('Please enter all the required fields');
+      dataExists('Please enter all the required fields');
     }
   };
+
+  const dataExists = (message: string) =>
+    toast.warning(message, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+
+  const dataAddedSuccessfully = (message: string) =>
+    toast.success(message, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
 
   return (
     <>
@@ -283,13 +311,16 @@ const Modal = (props: any) => {
           )}
           {props.props === 'Site Details' ? (
             <div className="modalButtons">
-              <button className="modalButton modalSaveButton">Update</button>
+              {edit && (
+                <button className="modalButton modalSaveButton">Update</button>
+              )}
             </div>
           ) : (
             ''
           )}
         </form>
       </div>
+      <ToastContainer />
     </>
   );
 };

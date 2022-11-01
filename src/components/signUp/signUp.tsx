@@ -3,10 +3,25 @@ import '../../components/signUp/signUp.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bcrypt from 'bcryptjs';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 const SignUp = () => {
   const [match, setMatch] = useState('');
   const [mPinLength, setMPinLength] = useState('');
   const [mobileLength, setMobileLength] = useState('');
+
+  const userExists = () =>
+    toast.error('User already exists', {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
 
   async function emptyUserhashFunc(user: any) {
     const salt = await bcrypt.genSalt(10);
@@ -70,7 +85,7 @@ const SignUp = () => {
         if (JSON.stringify(newMPin).length - 2 === 4) {
           if (newMPin === confirmMpin) {
             if (mappedUser.includes('user')) {
-              alert('user already exist');
+              userExists();
             } else if (mappedUser.includes('no user')) {
               hashFunc(previousData, userData);
             }
@@ -147,6 +162,7 @@ const SignUp = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

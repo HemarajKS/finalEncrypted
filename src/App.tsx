@@ -1,6 +1,6 @@
 import './style.css';
 import { useEffect } from 'react';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Router from './components/routes/router';
 
 function App() {
@@ -19,9 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <>
-        <Router />
-      </>
+      <Router />
     </div>
   );
 }

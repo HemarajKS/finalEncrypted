@@ -2,12 +2,26 @@ import './login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import bcrypt from 'bcryptjs';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const Login = () => {
   const navigate = useNavigate();
   const [togglePass, setTogglePass] = useState(false);
   const [mobileLength, setMobileLength] = useState('');
   const [mPinLength, setMPinLength] = useState('');
+
+  const incorrectCredentials = () =>
+    toast.warning('Please enter correct user name or Password', {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
 
   const togglePassword = () => {
     setTogglePass(!togglePass);
@@ -30,7 +44,7 @@ const Login = () => {
       localStorage.setItem('currentUser', mobileNo);
       window.location.reload();
     } else {
-      alert('Please enter correct userName or Password');
+      incorrectCredentials();
     }
   }
 
@@ -135,6 +149,7 @@ const Login = () => {
           <div className="fingerPrintText">Use your fingerprint to login</div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

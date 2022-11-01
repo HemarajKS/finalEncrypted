@@ -9,7 +9,6 @@ const Home = () => {
   const [clickSearch, setClickSearch] = useState(false);
 
   window.addEventListener('popstate', (e) => {
-    // Nope, go back to your page
     window.history.go(1);
   });
 
