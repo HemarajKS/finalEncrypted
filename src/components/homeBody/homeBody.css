@@ -3,7 +3,6 @@
   margin-left: 8rem;
   position: relative;
   min-height: 100vh;
-  overflow: auto;
 }
 .homeBodyContainerBox {
   height: auto;
@@ -329,5 +328,14 @@
   }
   .cardLink {
     width: 270px;
+  }
+}
+
+@media screen and (min-width: 1380px) {
+  .homeBody {
+    margin-top: 3rem;
+    margin-left: 0 !important;
+    /* position: relative; */
+    min-height: 100vh;
   }
 }
