@@ -7,6 +7,10 @@ import { useState } from 'react';
 const Home = () => {
   const [profileShow, setProfileShow] = useState(false);
   const [clickSearch, setClickSearch] = useState(false);
+  window.history.pushState(null, null || '', window.location.href);
+  window.onpopstate = function () {
+    window.history.go(1);
+  };
   return (
     <div className="home">
       <div className="homeContainer">
