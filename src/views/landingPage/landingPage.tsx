@@ -11,6 +11,11 @@ const LandingPage = (child: any) => {
     window.location.pathname === '/landing/login' || '/' ? 'login' : 'signup'
   );
 
+  window.addEventListener('popstate', (e) => {
+    // Nope, go back to your page
+    window.history.go(1);
+  });
+
   useEffect(() => {
     setDisplaySnackBar(Boolean(sessionStorage.getItem('signUpSuccess')));
     sessionStorage.removeItem('signUpSuccess');

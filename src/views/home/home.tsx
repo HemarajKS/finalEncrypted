@@ -7,10 +7,18 @@ import { useState } from 'react';
 const Home = () => {
   const [profileShow, setProfileShow] = useState(false);
   const [clickSearch, setClickSearch] = useState(false);
-  window.history.pushState(null, null || '', window.location.href);
-  window.onpopstate = function () {
+
+  window.addEventListener('popstate', (e) => {
+    // Nope, go back to your page
     window.history.go(1);
-  };
+  });
+
+  if (localStorage.getItem('auth')) {
+    window.history.pushState(null, null || '', window.location.href);
+    window.onpopstate = function (event) {
+      window.history.go(1);
+    };
+  }
   return (
     <div className="home">
       <div className="homeContainer">
