@@ -2,8 +2,10 @@ import Login from '../../components/Login/login';
 import SignUp from '../../components/signUp/signUp';
 import './landingPage.css';
 import { Routes, Route, Link } from 'react-router-dom';
-import SnackBar from '../../components/snackBar/snackBar';
+
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const LandingPage = (child: any) => {
   const [displaySnackBar, setDisplaySnackBar] = useState(false);
@@ -16,7 +18,17 @@ const LandingPage = (child: any) => {
     window.history.go(1);
   });
 
-  console.log('path', window.location.pathname);
+  const signUpSuccess = () =>
+    toast.success('SignUp Successful', {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
 
   window.addEventListener('popstate', (e) => {
     // Nope, go back to your page
@@ -37,14 +49,12 @@ const LandingPage = (child: any) => {
     console.log(window.location.pathname);
   });
 
+  if (displaySnackBar) {
+    signUpSuccess();
+  }
+
   return (
     <div className="login">
-      {displaySnackBar ? (
-        <SnackBar message="Congrats!!! Success, Signin to access the vault" />
-      ) : (
-        ''
-      )}
-
       <div className="loginContainer">
         <div className="loginLogoContainer">
           <div className="loginLogo">
@@ -91,6 +101,7 @@ const LandingPage = (child: any) => {
           {child !== '{}' ? child.props : ''}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
