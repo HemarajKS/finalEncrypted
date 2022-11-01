@@ -34,13 +34,15 @@ const Router = () => {
   };
   return (
     <Routes>
-      <Route
-        path="/landing/*"
-        element={!authValue ? <LandingPage /> : <Home />}
-      >
-        {!authValue && <Route path="login" element={<Login />} />}
-        {!authValue && <Route path="signUp" element={<SignUp />} />}
-      </Route>
+      {!authValue && (
+        <Route
+          path="/landing/*"
+          element={!authValue ? <LandingPage /> : <Home />}
+        >
+          {!authValue && <Route path="login" element={<Login />} />}
+          {!authValue && <Route path="signUp" element={<SignUp />} />}
+        </Route>
+      )}
       {protectedRouting('*', <Home />)}
     </Routes>
   );
