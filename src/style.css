@@ -53,6 +53,16 @@ button {
   cursor: pointer;
 }
 
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  color: var(--successGreenFont) !important;
+  background: var(--successGreen) !important;
+  border: 2px solid var(--successGreenBorder) !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @media screen and (max-width: 767px) {
   body {
     margin: 0 !important;
